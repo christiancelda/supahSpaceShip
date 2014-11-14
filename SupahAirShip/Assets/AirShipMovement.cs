@@ -9,15 +9,31 @@ public class AirShipMovement : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		acceler = Input.acceleration;
+		Time.timeScale = 0;
+		//acceler.x = 0;
+		//acceler.y = 0;
+		acceler.Set(0,0,0);
 
-		if (acceler.sqrMagnitude > 1) {
-			acceler.Normalize();
-		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		transform.Translate(0, 0 , zMovement);
-		transform.Rotate(Input.acceleration.y * 2, Input.acceleration.x * 2, 0);
+		Debug.Log(acceler);
+		if (Input.GetMouseButtonDown(0)){
+			if (Time.timeScale != 1){
+				Debug.Log("Funciona el click");
+				acceler.Set(0,0,0);
+				Time.timeScale = 1;
+			}
+
+			else {
+				Time.timeScale = 0;
+			}
+		}
+
+		if (Time.timeScale != 0){
+			transform.Translate(0, 0 , zMovement);
+			transform.Rotate(Input.acceleration.y * 2, Input.acceleration.x * 2, 0);
+		}
 	}
 }
